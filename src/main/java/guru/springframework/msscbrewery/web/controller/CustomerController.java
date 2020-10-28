@@ -28,9 +28,9 @@ public class CustomerController {
     }
 
 
-    @PostMapping("/{customerId}")
-    public ResponseEntity<CustomerDto> handlePost(@PathVariable UUID customerId, @RequestBody CustomerDto customerDto){
-        CustomerDto savedCustomer = customerService.saveCustomer(customerId,customerDto);
+    @PostMapping()
+    public ResponseEntity<CustomerDto> handlePost( @RequestBody CustomerDto customerDto){
+        CustomerDto savedCustomer = customerService.saveCustomer(customerDto);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Location",  "/api/v1/customer/" + savedCustomer.getID());
         return new ResponseEntity<>(savedCustomer,httpHeaders,HttpStatus.CREATED);

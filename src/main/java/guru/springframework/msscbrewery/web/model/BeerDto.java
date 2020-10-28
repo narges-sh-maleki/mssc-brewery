@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import java.util.UUID;
 
 @Data
@@ -14,9 +18,14 @@ import java.util.UUID;
 @Builder
 public class BeerDto {
 
+    @Null
     private UUID id;
+    @Pattern(regexp = "[a-zA-Z]*")
+    @NotBlank
     private String beerName;
-    private BeerStyleEnum beerStyle;
+    @NotBlank
+    private String beerStyle;
+    @Positive
     private Long upc;
 
 
