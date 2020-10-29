@@ -3,14 +3,18 @@ package guru.springframework.msscbrewery.web.controller;
 
 import guru.springframework.msscbrewery.service.CustomerService;
 import guru.springframework.msscbrewery.web.model.CustomerDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping("api/v1/customer")
 public class CustomerController {
@@ -29,7 +33,7 @@ public class CustomerController {
 
 
     @PostMapping()
-    public ResponseEntity<CustomerDto> handlePost( @RequestBody CustomerDto customerDto){
+    public ResponseEntity<CustomerDto> handlePost( @Valid  @RequestBody CustomerDto customerDto){
         CustomerDto savedCustomer = customerService.saveCustomer(customerDto);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Location",  "/api/v1/customer/" + savedCustomer.getID());
@@ -37,7 +41,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{customerId}")
-    public ResponseEntity<CustomerDto> handlePut(@PathVariable UUID customerId, @RequestBody CustomerDto customerDto){
+    public ResponseEntity<CustomerDto> handlePut( @PathVariable UUID customerId,@Valid @RequestBody CustomerDto customerDto){
         CustomerDto updatedCustomer = customerService.updateCustomer(customerId, customerDto);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Location","api/v1/customer/" + updatedCustomer.getID().toString());
@@ -50,5 +54,9 @@ public class CustomerController {
         customerService.deleteCustomer(customerId);
     }
 
-
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity HandleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
+        log.error( "******" + ex.getMessage());
+        return new ResponseEntity("My controller-specific error handler",HttpStatus.BAD_REQUEST);
+    }
 }

@@ -31,32 +31,33 @@ public class BeerControllerV2 {
 
 
     @GetMapping("/{beerId}")
-    public ResponseEntity<BeerDtoV2> getBeer(@PathVariable("beerId") UUID beerId){
+    public ResponseEntity<BeerDtoV2> getBeer(@PathVariable("beerId") UUID beerId) {
         return new ResponseEntity<BeerDtoV2>(beerService.getBeerById(beerId), HttpStatus.OK);
     }
 
 
     //todo : add host to URL
     @PostMapping
-    public ResponseEntity<BeerDtoV2> handlePost(@Valid @RequestBody  BeerDtoV2 beerDto){
-        BeerDtoV2 savedDto =  beerService.saveNewBeer(beerDto);
+    public ResponseEntity<BeerDtoV2> handlePost(@Valid @RequestBody BeerDtoV2 beerDto) {
+        BeerDtoV2 savedDto = beerService.saveNewBeer(beerDto);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Location","/api/v2/beer/" + savedDto.getId().toString());
-        return new ResponseEntity<>(httpHeaders,HttpStatus.CREATED);
+        httpHeaders.add("Location", "/api/v2/beer/" + savedDto.getId().toString());
+        return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
     }
 
     @PutMapping("/{beerId}")
-    public ResponseEntity<BeerDtoV2> handlePut(@PathVariable UUID beerId,@Valid @RequestBody BeerDtoV2 beerDto){
+    public ResponseEntity<BeerDtoV2> handlePut(@PathVariable UUID beerId, @Valid @RequestBody BeerDtoV2 beerDto) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Location","/api/v2/beer/" + beerId.toString());
-        return new ResponseEntity<BeerDtoV2>(beerService.updateBeer(beerId,beerDto),httpHeaders,HttpStatus.OK);
+        httpHeaders.add("Location", "/api/v2/beer/" + beerId.toString());
+        return new ResponseEntity<BeerDtoV2>(beerService.updateBeer(beerId, beerDto), httpHeaders, HttpStatus.OK);
 
 
     }
+
     @DeleteMapping("/{beerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBeer(@PathVariable UUID beerId){
-        beerService.deleteBeer( beerId);
+    public void deleteBeer(@PathVariable UUID beerId) {
+        beerService.deleteBeer(beerId);
     }
 
 /*
@@ -73,19 +74,5 @@ public class BeerControllerV2 {
     }*/
 
 
-    /*@ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity validationErrorHandler(MethodArgumentNotValidException e,WebRequest request) throws Exception {
-
-        ResponseEntityExceptionHandler resp = new ResponseEntityExceptionHandler(){
-            @Override
-            protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-                return super.handleMethodArgumentNotValid(ex, headers, status, request);
-
-            }
-        };
-
-        return resp.handleException(e,request);
-        //return new ResponseEntity<>(e,HttpStatus.BAD_REQUEST);
-    }*/
 }
 

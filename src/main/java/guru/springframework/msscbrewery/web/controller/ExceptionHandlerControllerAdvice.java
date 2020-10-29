@@ -1,4 +1,4 @@
-package guru.springframework.msscbrewery.web.controller.v2;
+package guru.springframework.msscbrewery.web.controller;
 
 
 import org.springframework.http.HttpHeaders;
