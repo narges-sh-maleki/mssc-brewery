@@ -36,7 +36,7 @@ public class CustomerController {
     public ResponseEntity<CustomerDto> handlePost( @Valid  @RequestBody CustomerDto customerDto){
         CustomerDto savedCustomer = customerService.saveCustomer(customerDto);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Location",  "/api/v1/customer/" + savedCustomer.getID());
+        httpHeaders.add("Location",  "/api/v1/customer/" + savedCustomer.getId());
         return new ResponseEntity<>(savedCustomer,httpHeaders,HttpStatus.CREATED);
     }
 
@@ -44,7 +44,7 @@ public class CustomerController {
     public ResponseEntity<CustomerDto> handlePut( @PathVariable UUID customerId,@Valid @RequestBody CustomerDto customerDto){
         CustomerDto updatedCustomer = customerService.updateCustomer(customerId, customerDto);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Location","api/v1/customer/" + updatedCustomer.getID().toString());
+        httpHeaders.add("Location","api/v1/customer/" + updatedCustomer.getId().toString());
         return  new ResponseEntity<>(updatedCustomer,httpHeaders,HttpStatus.OK);
     }
 

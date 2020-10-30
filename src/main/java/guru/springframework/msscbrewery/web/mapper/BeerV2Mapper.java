@@ -1,4 +1,4 @@
-package guru.springframework.msscbrewery.mapper;
+package guru.springframework.msscbrewery.web.mapper;
 
 import guru.springframework.msscbrewery.domain.Beer;
 import guru.springframework.msscbrewery.web.model.BeerDto;

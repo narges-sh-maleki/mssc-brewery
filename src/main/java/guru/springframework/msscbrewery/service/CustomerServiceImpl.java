@@ -11,17 +11,17 @@ import java.util.UUID;
 public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto getCustomer(UUID customerId) {
-        return CustomerDto.builder().ID(UUID.randomUUID()).name("Narges").build();
+        return CustomerDto.builder().id(UUID.randomUUID()).name("Narges").build();
     }
 
     @Override
     public CustomerDto saveCustomer( CustomerDto customerDto) {
-        return CustomerDto.builder().ID(UUID.randomUUID()).name("new customer").build();
+        return CustomerDto.builder().id(UUID.randomUUID()).name("new customer").build();
     }
 
     @Override
     public CustomerDto updateCustomer(UUID customerID, CustomerDto customerDto) {
-        return CustomerDto.builder().ID(UUID.randomUUID()).name("updated customer").build();
+        return CustomerDto.builder().id(UUID.randomUUID()).name("updated customer").build();
     }
 
     @Override
