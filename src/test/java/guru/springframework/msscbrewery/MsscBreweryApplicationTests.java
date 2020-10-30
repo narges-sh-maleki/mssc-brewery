@@ -17,7 +17,7 @@ class MsscBreweryApplicationTests {
 	@Test
 	void myNoteBookTest(){
 		Pattern p = Pattern.compile("[a-zA-Z]*");
-		Matcher m = p.matcher("ali2");
+		Matcher m = p.matcher("ali");
 		boolean b = m.matches();
 		Assertions.assertTrue(b);
 	}
